@@ -1,17 +1,23 @@
 package com.SK.taskflow.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.SK.taskflow.dto.UserRegistrationRequest;
+import com.SK.taskflow.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    @PostMapping("/register")
-    public String register() {
+    private final UserService userService;
 
-        return "User Registration API Working!";
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
+    @PostMapping("/register")
+    public String register(@RequestBody UserRegistrationRequest request) {
+
+        return userService.registerUser(request);
+
+    }
 }
